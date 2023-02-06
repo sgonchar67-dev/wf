@@ -1,0 +1,52 @@
+security:
+    # https://symfony.com/doc/current/security.html#c-hashing-passwords
+    password_hashers:
+        App\Domain\Entity\User\User: 'auto'
+
+    # https://symfony.com/doc/current/security/authenticator_manager.html
+    enable_authenticator_manager: true
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Domain\Entity\User\User
+
+    firewalls:
+        api2_check:
+            pattern: ^/api2/check
+            stateless: true
+        api_token_refresh:
+            pattern: ^/api2/token/refresh
+            stateless: true
+        dev:
+            pattern: ^/_(profiler|wdt)
+            security: false
+        api:
+            pattern: ^/api/
+            stateless: true
+            provider: app_user_provider
+            jwt: ~
+        main:
+            #      provider: app_user_provider
+            json_login:
+                check_path: /api2/auth
+                username_path: username
+                password_path: password
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+
+    role_hierarchy:
+        ROLE_OWNER: ROLE_ADMIN
+        ROLE_ADMIN: [ROLE_USER, ROLE_ADMIN_COMPANY, ROLE_ADMIN_SHOWCASE, ROLE_ADMIN_PRODUCTS, ROLE_ADMIN_REFERENCE_BOOKS, ROLE_ADMIN_CONTRACTORS, ROLE_ADMIN_EMPLOYERS, ROLE_ADMIN_MESSAGES, ROLE_ADMIN_SALES, ROLE_ADMIN_PURCHASES]
+        ROLE_SUPER_ADMIN: [ROLE_OWNER, ROLE_ALLOWED_TO_SWITCH]
+
+    access_control:
+        - { path: ^/api2/check, roles: PUBLIC_ACCESS }
+        - { path: ^/api2/register, roles: PUBLIC_ACCESS }
+        - { path: ^/api2/auth, roles: PUBLIC_ACCESS }
+        - { path: ^/api2/token/refresh, roles: PUBLIC_ACCESS }
+        - { path: ^/api, roles: PUBLIC_ACCESS } # Allows accessing API documentations and Swagger UI
+        #    - { path: ^/api/users, roles: ROLE_ADMIN, methods: [POST] } #todo add PUT
+
+        - { path: ^/, roles: IS_AUTHENTICATED_FULLY }

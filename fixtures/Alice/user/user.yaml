@@ -1,0 +1,3 @@
+App\Domain\Entity\User\User:
+    user_{1..2}:
+        phone: <ru_RU:phoneNumber()>

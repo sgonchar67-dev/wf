@@ -1,0 +1,23 @@
+# api/config/packages/vich_uploader.yaml
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        image:
+            uri_prefix: /api/storage/images
+            upload_destination: '%kernel.project_dir%/public/storage/images'
+            # Will rename uploaded files using a uniqueid as a prefix.
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            directory_namer:
+                service: Vich\UploaderBundle\Naming\CurrentDateTimeDirectoryNamer
+                options:
+                  date_time_property: uploadedAt
+        document:
+            uri_prefix: /api/storage/documents
+            upload_destination: '%kernel.project_dir%/public/storage/documents'
+            # Will rename uploaded files using a uniqueid as a prefix.
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            directory_namer:
+                service: Vich\UploaderBundle\Naming\CurrentDateTimeDirectoryNamer
+                options:
+                  date_time_property: uploadedAt

@@ -1,0 +1,5 @@
+gesdinet_jwt_refresh_token:
+    ttl: 2592000
+    ttl_update: true
+#    refresh_token_class: App\Domain\Entity\JwtRefreshToken
+#    user_provider: app_user_provider

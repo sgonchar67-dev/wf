@@ -1,0 +1,4 @@
+App\Domain\Entity\Company\Employee:
+    employee_{1..2}:
+        user: '@user_*'
+        company: '@company_*'

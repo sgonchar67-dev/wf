@@ -1,0 +1,4 @@
+App\Domain\Entity\Company\Company:
+    company_{1..2}:
+        user: '@user_*'
+        name: <name()>

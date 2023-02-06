@@ -1,0 +1,2 @@
+App\Domain\Entity\Product\Product:
+    product_{1..10}:

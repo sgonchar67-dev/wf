@@ -1,0 +1,12 @@
+gesdinet_jwt_refresh_token:
+    path: /api2/token/refresh
+    defaults: { _controller: gesdinet.jwtrefreshtoken:refresh }
+#    defaults: { _controller: App\Service\Authentication\RefreshTokenSecurityCookieService:refresh }
+    methods: ['POST' ]
+register:
+    path: /api2/register
+    controller: App\Controller\RegistrationController::index
+    methods: [ 'POST' ]
+authentication_token:
+    path: /api2/auth
+    methods: [ 'POST' ]
